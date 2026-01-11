@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HarvestHub - AI Crop Price Predictor</title>
+    <meta name="theme-color" content="#2ecc71">
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div id="preloader">
+        <div class="loader-content">
+            <dotlottie-player 
+                src="https://assets1.lottiefiles.com/packages/lf20_w51pcehl.json" 
+                background="transparent" 
+                speed="1" 
+                style="width: 300px; height: 300px;" 
+                loop 
+                autoplay>
+            </dotlottie-player>
+            <p>Preparing the field...</p>
+        </div>
+    </div>
+
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-seedling"></i>
+                <h1>Harvest<span>Hub</span> AI</h1>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#home" data-i18n="home">Home</a></li>
+                    <li><a href="predict.html" data-i18n="predict">Predict Price</a></li>
+                    <li><a href="#benefits" data-i18n="benefits">Benefits</a></li>
+                    <li><a href="#how-it-works" data-i18n="how-it-works">How It Works</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+                <a href="predict.html" class="btn" data-i18n="predict-now">Predict Now</a>
+                <a href="http://localhost:5000/commitment" target="_blank" class="btn btn-secondary" style="margin-left: 10px;">
+                    <i class="fas fa-bell"></i> Activate AI Monitoring
+                </a>
+            </div>
+
+            <!-- Settings Dropdown -->
+            <div class="settings">
+                <button class="settings-btn">
+                    <i class="fas fa-cog"></i>
+                    <span class="settings-text" data-i18n="settings">Settings</span>
+                </button>
+                
+                <div class="settings-dropdown">
+                    <div class="settings-section">
+                        <h4><i class="fas fa-palette"></i> <span data-i18n="theme">Theme</span></h4>
+                        <div class="theme-toggle">
+                            <span class="theme-label" data-i18n="light">Light</span>
+                            <label class="switch">
+                                <input type="checkbox" id="themeToggle">
+                                <span class="slider"></span>
+                            </label>
+                            <span class="theme-label" data-i18n="dark">Dark</span>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h4><i class="fas fa-language"></i> <span data-i18n="language">Language</span></h4>
+                        <select id="languageSelect" class="language-select">
+                            <option value="en">English</option>
+                            <option value="hi">हिन्दी (Hindi)</option>
+                            <option value="bn">বাংলা (Bengali)</option>
+                            <option value="te">తెలుగు (Telugu)</option>
+                            <option value="mr">मराठी (Marathi)</option>
+                            <option value="ta">தமிழ் (Tamil)</option>
+                            <option value="gu">ગુજરાતી (Gujarati)</option>
+                            <option value="kn">ಕನ್ನಡ (Kannada)</option>
+                            <option value="ml">മലയാളം (Malayalam)</option>
+                            <option value="or">ଓଡ଼ିଆ (Odia)</option>
+                            <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+                            <option value="ur">اردو (Urdu)</option>
+                            <option value="as">অসমীয়া (Assamese)</option>
+                        </select>
+                        <button id="applyLanguage" class="btn-small" data-i18n="apply">Apply</button>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h4><i class="fas fa-info-circle"></i> <span data-i18n="about">About</span></h4>
+                        <p class="settings-info">HarvestHub AI v2.0</p>
+                        <p class="settings-info">© 2026 All rights reserved</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1 data-i18n="hero-title">AI-Powered Crop Price Prediction</h1>
+                <p data-i18n="hero-subtitle">Get accurate market price forecasts for your crops using advanced AI algorithms and real-time market data. Plan your harvest and maximize profits.</p>
+                <div class="hero-btns">
+                    <a href="predict.html" class="btn" data-i18n="predict-crop-price">Predict Crop Price</a>
+                    <a href="#benefits" class="btn btn-secondary" data-i18n="learn-more">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="sell-section" id="benefits">
+        <div class="container">
+            <div class="sell-header">
+                <h2 data-i18n="why-use">Why Use Our AI Predictor?</h2>
+                <p data-i18n="why-use-sub">Get accurate insights to make informed decisions about your crops</p>
+            </div>
+            <div class="sell-stats">
+                <div class="stat"><h3>95%</h3><p data-i18n="prediction-accuracy">Prediction Accuracy</p></div>
+                <div class="stat"><h3 data-i18n="real-time">Real-time</h3><p data-i18n="real-time-data">Market Data</p></div>
+                <div class="stat"><h3>10+</h3><p data-i18n="data-points">Data Points Analyzed</p></div>
+                <div class="stat"><h3>1000+</h3><p data-i18n="successful-predictions">Successful Predictions</p></div>
+            </div>
+            <div class="sell-benefits">
+                <div class="benefit">
+                    <i class="fas fa-brain"></i>
+                    <h3 data-i18n="ai-powered">AI-Powered</h3>
+                    <p data-i18n="ai-powered-desc">Advanced machine learning algorithms analyze multiple market factors.</p>
+                </div>
+                <div class="benefit">
+                    <i class="fas fa-chart-line"></i>
+                    <h3 data-i18n="future-forecast">Future Forecast</h3>
+                    <p data-i18n="future-forecast-desc">Predict prices for next 3 days based on historical trends.</p>
+                </div>
+                <div class="benefit">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3 data-i18n="regional-analysis">Regional Analysis</h3>
+                    <p data-i18n="regional-analysis-desc">Get location-specific price adjustments and insights.</p>
+                </div>
+                <div class="benefit">
+                    <i class="fas fa-bell"></i>
+                    <h3 data-i18n="market-alerts">Market Alerts</h3>
+                    <p data-i18n="market-alerts-desc">Receive alerts about price volatility and market changes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-i18n="how-works">How Our AI Predictor Works</h2>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3 data-i18n="step1-title">Select Crop & Region</h3>
+                    <p data-i18n="step1-desc">Choose your crop and farming region for accurate predictions.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3 data-i18n="step2-title">Input Farming Details</h3>
+                    <p data-i18n="step2-desc">Provide soil type, irrigation method, and expected yield.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3 data-i18n="step3-title">AI Analysis</h3>
+                    <p data-i18n="step3-desc">Our algorithms analyze market data and historical trends.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3 data-i18n="step4-title">Get Predictions</h3>
+                    <p data-i18n="step4-desc">Receive accurate price forecasts for next 3 days.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="logo">
+                        <i class="fas fa-seedling"></i>
+                        <h3>Harvest<span>Hub</span> AI</h3>
+                    </div>
+                    <p data-i18n="footer-tagline">Empowering farmers with AI-powered price predictions and market insights.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3 data-i18n="farmer-support">Farmer Support</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-phone"></i> +91 98765 43210</li>
+                        <li><i class="fas fa-envelope"></i> support@harvesthub.ai</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Agri-Tech Park, New Delhi</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 data-i18n="data-sources">Data Sources</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-database"></i> <span data-i18n="nafed-market">NAFED Market Data</span></li>
+                        <li><i class="fas fa-satellite"></i> <span data-i18n="weather-api">Weather API</span></li>
+                        <li><i class="fas fa-chart-bar"></i> <span data-i18n="historical-trends">Historical Trends</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 HarvestHub AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="settings.js"></script>
+</body>
+</html>

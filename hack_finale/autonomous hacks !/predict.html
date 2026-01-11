@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HarvestHub - Crop Price Predictor</title>
+    <meta name="theme-color" content="#2ecc71">
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div id="preloader">
+        <div class="loader-content">
+            <dotlottie-player 
+                src="https://assets1.lottiefiles.com/packages/lf20_w51pcehl.json" 
+                background="transparent" 
+                speed="1" 
+                style="width: 300px; height: 300px;" 
+                loop 
+                autoplay>
+            </dotlottie-player>
+            <p>Loading AI Predictor...</p>
+        </div>
+    </div>
+
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-seedling"></i>
+                <h1>Harvest<span>Hub</span> AI</h1>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="index.html" data-i18n="home">Home</a></li>
+                    <li><a href="#predict" class="active" data-i18n="predict">Predict Price</a></li>
+                    <li><a href="index.html#benefits" data-i18n="benefits">Benefits</a></li>
+                    <li><a href="index.html#how-it-works" data-i18n="how-it-works">How It Works</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+                <a href="index.html" class="btn btn-secondary" data-i18n="back-home">Back to Home</a>
+                <a href="http://localhost:5000/commitment" target="_blank" class="btn" style="margin-left: 10px;">
+                    <i class="fas fa-bell"></i> Activate AI Monitoring
+                </a>
+            </div>
+
+            <!-- Settings Dropdown -->
+            <div class="settings">
+                <button class="settings-btn">
+                    <i class="fas fa-cog"></i>
+                    <span class="settings-text" data-i18n="settings">Settings</span>
+                </button>
+                
+                <div class="settings-dropdown">
+                    <div class="settings-section">
+                        <h4><i class="fas fa-palette"></i> <span data-i18n="theme">Theme</span></h4>
+                        <div class="theme-toggle">
+                            <span class="theme-label" data-i18n="light">Light</span>
+                            <label class="switch">
+                                <input type="checkbox" id="themeToggle">
+                                <span class="slider"></span>
+                            </label>
+                            <span class="theme-label" data-i18n="dark">Dark</span>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h4><i class="fas fa-language"></i> <span data-i18n="language">Language</span></h4>
+                        <select id="languageSelect" class="language-select">
+                            <option value="en">English</option>
+                            <option value="hi">हिन्दी (Hindi)</option>
+                            <option value="bn">বাংলা (Bengali)</option>
+                            <option value="te">తెలుగు (Telugu)</option>
+                            <option value="mr">मराठी (Marathi)</option>
+                            <option value="ta">தமிழ் (Tamil)</option>
+                            <option value="gu">ગુજરાતી (Gujarati)</option>
+                            <option value="kn">ಕನ್ನಡ (Kannada)</option>
+                            <option value="ml">മലയാളം (Malayalam)</option>
+                            <option value="or">ଓଡ଼ିଆ (Odia)</option>
+                            <option value="pa">ਪੰਜਾਬी (Punjabi)</option>
+                            <option value="ur">اردو (Urdu)</option>
+                            <option value="as">অসমীয়া (Assamese)</option>
+                        </select>
+                        <button id="applyLanguage" class="btn-small" data-i18n="apply">Apply</button>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h4><i class="fas fa-info-circle"></i> <span data-i18n="about">About</span></h4>
+                        <p class="settings-info">HarvestHub AI v2.0</p>
+                        <p class="settings-info">© 2026 All rights reserved</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Full-Screen Prediction Section -->
+    <section class="predict-section" id="predict">
+        <div class="container">
+            <div class="predict-header">
+                <h2><i class="fas fa-robot"></i> <span data-i18n="ai-predictor">AI Crop Price Predictor</span></h2>
+                <p data-i18n="ai-predictor-sub">Get accurate market price predictions using real-time data and machine learning algorithms</p>
+            </div>
+            
+            <div class="predict-container">
+                <!-- Loading Animation (Initially hidden) -->
+                <div id="loadingAnimation" class="loading-animation" style="display: none;">
+                    <dotlottie-player 
+                        src="https://assets10.lottiefiles.com/packages/lf20_buj7J8.json" 
+                        background="transparent" 
+                        speed="1" 
+                        style="width: 250px; height: 250px;" 
+                        loop 
+                        autoplay>
+                    </dotlottie-player>
+                    <h3 class="loading-text">Analyzing Market Data...</h3>
+                    <p class="loading-subtext">Our AI is processing your inputs and scanning market trends</p>
+                    <div class="progress-indicator">
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <span class="progress-text">0%</span>
+                    </div>
+                </div>
+
+                <!-- Prediction Form -->
+                <form id="predictionForm" class="predict-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cropSelect"><i class="fas fa-seedling"></i> <span data-i18n="select-crop">Select Crop</span></label>
+                            <select id="cropSelect" name="crop" required>
+                                <option value="" data-i18n="select-crop-option">-- Choose Crop --</option>
+                                <option value="Banana">Banana</option>
+                                <option value="Coconut">Coconut</option>
+                                <option value="Rice">Rice</option>
+                                <option value="Wheat">Wheat</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="regionSelect"><i class="fas fa-map-marker-alt"></i> <span data-i18n="select-region">Region / District</span></label>
+                            <select id="regionSelect" name="region" required>
+                                <option value="" data-i18n="select-region-option">-- Select Region --</option>
+                                <option value="Punjab">Punjab</option>
+                                <option value="Haryana">Haryana</option>
+                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                <option value="Maharashtra">Maharashtra</option>
+                                <option value="Gujarat">Gujarat</option>
+                                <option value="Rajasthan">Rajasthan</option>
+                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                <option value="Karnataka">Karnataka</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="yield"><i class="fas fa-weight-hanging"></i> <span data-i18n="expected-yield">Expected Yield (Quintal/Hectare)</span></label>
+                            <input type="number" id="yield" name="yield" min="1" max="1000" placeholder="e.g., 50" data-i18n-placeholder="yield-placeholder" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label><i class="fas fa-cloud-sun"></i> <span data-i18n="season-label">Season (AI Determined)</span></label>
+                            <div class="ai-determined-value">
+                                <i class="fas fa-brain"></i>
+                                <span id="seasonValue" data-i18n="season-text">Will be determined by AI based on region and current date</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label><i class="fas fa-shopping-cart"></i> <span data-i18n="demand-label">Market Demand (AI Analyzed)</span></label>
+                        <div class="ai-determined-value">
+                            <i class="fas fa-chart-line"></i>
+                            <span id="demandValue" data-i18n="demand-text">Will be analyzed based on crop type, region, and historical data</span>
+                        </div>
+                    </div>
+                    
+                    <button type="button" id="predictBtn" class="btn predict-btn">
+                        <i class="fas fa-calculator"></i> <span data-i18n="predict-crop-price">Predict Crop Price</span>
+                    </button>
+                </form>
+
+                <!-- Result Container (Initially hidden) -->
+                <div id="predictResult" class="predict-result" style="display: none;">
+                    <!-- Result will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="logo">
+                        <i class="fas fa-seedling"></i>
+                        <h3>Harvest<span>Hub</span> AI</h3>
+                    </div>
+                    <p data-i18n="footer-tagline">Empowering farmers with AI-powered price predictions and market insights.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3 data-i18n="farmer-support">Farmer Support</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-phone"></i> +91 98765 43210</li>
+                        <li><i class="fas fa-envelope"></i> support@harvesthub.ai</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Agri-Tech Park, New Delhi</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 data-i18n="data-sources">Data Sources</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-database"></i> <span data-i18n="nafed-market">NAFED Market Data</span></li>
+                        <li><i class="fas fa-satellite"></i> <span data-i18n="weather-api">Weather API</span></li>
+                        <li><i class="fas fa-chart-bar"></i> <span data-i18n="historical-trends">Historical Trends</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 HarvestHub AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="predict-script.js"></script>
+    <script src="settings.js"></script>
+</body>
+</html>

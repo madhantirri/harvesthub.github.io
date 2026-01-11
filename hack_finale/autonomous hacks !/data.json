@@ -1,0 +1,42 @@
+
+{
+  "commodity": "Banana",
+  "generated_on": "2026-01-10T23:02:27.740192",
+  "forecast_7_days": {
+    "day_1": 2453.89,
+    "day_2": 2454.58,
+    "day_3": 2440.22,
+    "day_4": 2427.1,
+    "day_5": 2410.73,
+    "day_6": 2414.84,
+    "day_7": 2414.48
+  },
+  "confidence_band": {
+    "lower_bound": 2223.69,
+    "upper_bound": 2641.62,
+    "volatility_level": "high"
+  },
+  "statistics": {
+    "last_price": 2451.95,
+    "weekly_change_pct": -3.18
+  },
+  "historical_comparison": {
+    "vs_last_week_pct": -3.18,
+    "vs_last_year_pct": 10.69
+  },
+  "drivers": {
+    "positive": [
+      "Lower mandi arrivals"
+    ],
+    "negative": []
+  },
+  "alerts": [
+    "\u26a0\ufe0f High price volatility expected",
+    "\u26a0\ufe0f Seasonal downward pressure likely in coming weeks"
+  ],
+  "seasonal_outlook": {
+    "trend": "bearish",
+    "time_horizon": "3\u20136 weeks",
+    "reason": "Rabi harvest approaching, supply likely to increase"
+  }
+}

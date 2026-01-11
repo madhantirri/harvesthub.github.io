@@ -1,0 +1,4 @@
+commit_id,user_id,commodity,entry_price,quantity,entry_date,current_signal,last_notified_signal,exit_price,gross_profit,platform_fee,status
+7a4ea60b,919328037817,Rice,2667.46,10,2026-01-11T04:06:24.331947,SELL,SELL,2667.46,0.0,0.0,settled
+e53d0449,+919023727438,Rice,2667.46,20,2026-01-11T06:51:32.982261,HOLD,,,,,active
+c329dcc0,+917653041630,Rice,2667.46,20,2026-01-11T07:43:40.179320,HOLD,,,,,active
